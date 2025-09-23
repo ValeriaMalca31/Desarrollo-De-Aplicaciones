@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Se envió un código a tu correo"
+        android:textSize="16sp"
+        android:paddingBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/etCodigo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese código de verificación"
+        android:inputType="number"
+        android:padding="12dp"/>
+
+    <Button
+        android:id="@+id/btnVerificar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Verificar"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>

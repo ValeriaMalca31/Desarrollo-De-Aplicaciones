@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -11,27 +10,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
+        <!-- Botón de registro -->
+        <Button
+            android:id="@+id/btnIrRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrarse" />
+
+        <!-- Contenedor de fragmentos -->
         <FrameLayout
             android:id="@+id/contenedor_fragmentos"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1" />
+
+        <!-- Bottom navigation -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/botton_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/menu_bottom"
-            />
+            app:menu="@menu/menu_bottom" />
+
     </LinearLayout>
+
+    <!-- Drawer menu -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/drawer_menu"
-        />
+        app:menu="@menu/drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
