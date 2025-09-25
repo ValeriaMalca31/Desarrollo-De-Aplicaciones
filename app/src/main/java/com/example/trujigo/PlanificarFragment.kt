@@ -1,23 +1,19 @@
 package com.example.trujigo
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
+import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PlanificarFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PlanificarFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -33,20 +29,38 @@ class PlanificarFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Infla el layout del fragmento
         return inflater.inflate(R.layout.fragment_planificar, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val btnCompartir = view.findViewById<Button>(R.id.btnCompartir)
+        val overlay = view.findViewById<View>(R.id.overlay)
+        val qrModal = view.findViewById<CardView>(R.id.qrModal)
+        val closeButton = view.findViewById<ImageButton>(R.id.closeButton)
+
+        //presionar compartir
+        btnCompartir.setOnClickListener {
+            overlay.visibility = View.VISIBLE
+            qrModal.visibility = View.VISIBLE
+        }
+
+        //presionar X
+        closeButton.setOnClickListener {
+            overlay.visibility = View.GONE
+            qrModal.visibility = View.GONE
+        }
+
+        //cerrar al tocar fuera del modal
+        overlay.setOnClickListener {
+            overlay.visibility = View.GONE
+            qrModal.visibility = View.GONE
+        }
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PlanificarFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             PlanificarFragment().apply {
