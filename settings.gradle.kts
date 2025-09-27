@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TrujiGo"
+rootProject.name = "Mi Proyecto de Desarrollo de Aplicaciones"
 include(":app")
  
