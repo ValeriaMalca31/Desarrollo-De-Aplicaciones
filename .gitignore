@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+# Ignorar el archivo de credenciales de Firebase por seguridad
+app/google-services.json

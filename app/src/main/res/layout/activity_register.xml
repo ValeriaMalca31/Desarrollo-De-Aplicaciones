@@ -7,39 +7,84 @@
     android:background="#F5F5F5"
     tools:context=".RegisterActivity">
 
-    <ImageView
-        android:id="@+id/ivLogo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="48dp"
-        android:src="@drawable/ic_bus"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+    <!-- Header con flecha y logo -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Botón Flecha Atrás -->
+        <ImageButton
+            android:id="@+id/btnAtras"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Volver atrás"
+            android:src="@drawable/ic_flecha"
+            android:padding="0dp"
+            android:scaleType="centerInside"
+            app:tint="#000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_bus"
+            android:scaleType="fitCenter"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintWidth_percent="0.35" />
+
+
+
+        <!-- Título TrujiGo -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivLogo"
+            android:layout_marginTop="4dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Scroll con formulario -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@id/ivLogo"
+        android:layout_marginTop="1dp"
+        app:layout_constraintTop_toBottomOf="@id/headerLayout"
         app:layout_constraintBottom_toBottomOf="parent"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="24dp">
+            android:paddingHorizontal="24dp"
+            android:paddingBottom="24dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="@color/white"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
@@ -48,22 +93,25 @@
                     android:layout_height="wrap_content"
                     android:padding="24dp">
 
+                    <!-- Título Registro -->
                     <TextView
                         android:id="@+id/tvTituloRegistro"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Registro"
                         android:textColor="@color/black"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <!-- DNI -->
                     <TextView
                         android:id="@+id/tvLabelDni"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:text="DNI"
                         android:textColor="@color/black"
                         android:textSize="16sp"
@@ -73,28 +121,26 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilDni"
-                        style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:hint="Documento Nacional de Identidad"
-                        app:boxBackgroundColor="#F5F5F5"
-                        app:boxCornerRadiusBottomEnd="8dp"
-                        app:boxCornerRadiusBottomStart="8dp"
-                        app:boxCornerRadiusTopEnd="8dp"
-                        app:boxCornerRadiusTopStart="8dp"
                         app:hintTextColor="@color/text_hint_gray"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvLabelDni">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etDni"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
-                            android:textColor="@color/text_hint_gray" />
+                            android:maxLength="8"
+                            android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Usuario -->
                     <TextView
                         android:id="@+id/tvLabelUsuario"
                         android:layout_width="wrap_content"
@@ -109,28 +155,25 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilUsuario"
-                        style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:hint="Nombre de usuario"
-                        app:boxBackgroundColor="#F5F5F5"
-                        app:boxCornerRadiusBottomEnd="8dp"
-                        app:boxCornerRadiusBottomStart="8dp"
-                        app:boxCornerRadiusTopEnd="8dp"
-                        app:boxCornerRadiusTopStart="8dp"
                         app:hintTextColor="@color/text_hint_gray"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvLabelUsuario">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etUsuario"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPersonName"
-                            android:textColor="@color/text_hint_gray" />
+                            android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Contraseña -->
                     <TextView
                         android:id="@+id/tvLabelPassword"
                         android:layout_width="wrap_content"
@@ -145,28 +188,26 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilPassword"
-                        style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:hint="Contraseña"
-                        app:boxBackgroundColor="#F5F5F5"
-                        app:boxCornerRadiusBottomEnd="8dp"
-                        app:boxCornerRadiusBottomStart="8dp"
-                        app:boxCornerRadiusTopEnd="8dp"
-                        app:boxCornerRadiusTopStart="8dp"
                         app:hintTextColor="@color/text_hint_gray"
+                        app:endIconMode="password_toggle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvLabelPassword">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
-                            android:textColor="@color/text_hint_gray" />
+                            android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Celular -->
                     <TextView
                         android:id="@+id/tvLabelCelular"
                         android:layout_width="wrap_content"
@@ -181,28 +222,26 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilCelular"
-                        style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:hint="Número de celular"
-                        app:boxBackgroundColor="#F5F5F5"
-                        app:boxCornerRadiusBottomEnd="8dp"
-                        app:boxCornerRadiusBottomStart="8dp"
-                        app:boxCornerRadiusTopEnd="8dp"
-                        app:boxCornerRadiusTopStart="8dp"
                         app:hintTextColor="@color/text_hint_gray"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvLabelCelular">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etCelular"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="phone"
-                            android:textColor="@color/text_hint_gray" />
+                            android:maxLength="9"
+                            android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Correo Electrónico -->
                     <TextView
                         android:id="@+id/tvLabelCorreo"
                         android:layout_width="wrap_content"
@@ -217,50 +256,47 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilCorreo"
-                        style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:hint="Dirección de correo electrónico"
-                        app:boxBackgroundColor="#F5F5F5"
-                        app:boxCornerRadiusBottomEnd="8dp"
-                        app:boxCornerRadiusBottomStart="8dp"
-                        app:boxCornerRadiusTopEnd="8dp"
-                        app:boxCornerRadiusTopStart="8dp"
                         app:hintTextColor="@color/text_hint_gray"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvLabelCorreo">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etCorreo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress"
-                            android:textColor="@color/text_hint_gray" />
+                            android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-
+                    <!-- Botón Registrar -->
                     <Button
                         android:id="@+id/btnRegistrar"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="56dp"
                         android:layout_marginTop="24dp"
                         android:backgroundTint="#5984F7"
-                        android:padding="16dp"
                         android:text="Registrarse"
                         android:textAllCaps="false"
                         android:textSize="16sp"
+                        android:textStyle="bold"
                         app:cornerRadius="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tilCorreo" />
 
+                    <!-- Link Login -->
                     <TextView
                         android:id="@+id/tvIrLogin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:layout_marginBottom="32dp"
+                        android:layout_marginBottom="8dp"
                         android:text="¿Ya tiene cuenta? Inicie Sesión"
                         android:textColor="#5984F7"
                         android:textSize="14sp"
@@ -273,4 +309,5 @@
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

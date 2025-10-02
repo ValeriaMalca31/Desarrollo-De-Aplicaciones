@@ -1,42 +1,70 @@
 package com.example.trujigo
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class VerificarActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verificar)
 
-        // Obtener la referencia de cada uno de los 4 campos de código
-        val etCodigo1 = findViewById<EditText>(R.id.etCodigo1)
-        val etCodigo2 = findViewById<EditText>(R.id.etCodigo2)
-        val etCodigo3 = findViewById<EditText>(R.id.etCodigo3)
-        val etCodigo4 = findViewById<EditText>(R.id.etCodigo4)
+        auth = Firebase.auth
+
+        val tvCorreoUsuario = findViewById<TextView>(R.id.tvCorreoUsuario)
         val btnVerificar = findViewById<Button>(R.id.btnVerificar)
+        val tvReenviar = findViewById<TextView>(R.id.tvReenviar)
 
-        val correo = intent.getStringExtra("correo") ?: ""
+        //  Correo recibido desde RegisterActivity
+        val correo = intent.getStringExtra("correo") ?: "Usuario Desconocido"
+        tvCorreoUsuario.text = correo
 
+        // Botón "Ya verifiqué, continuar"
         btnVerificar.setOnClickListener {
-            // Unir el texto de los 4 campos en una sola cadena
-            val codigo = etCodigo1.text.toString() +
-                    etCodigo2.text.toString() +
-                    etCodigo3.text.toString() +
-                    etCodigo4.text.toString()
+            val user = auth.currentUser
 
-            // Asegúrate de que el código tenga 4 dígitos
-            if (codigo.length == 4) {
-                if (codigo == "1234") { // 🔹 Cambié la validación a 4 dígitos para que coincida con el UI
-                    Toast.makeText(this, "Correo $correo verificado ✅", Toast.LENGTH_LONG).show()
-                    // Aquí puedes abrir la pantalla principal de tu app
+            if (user == null) {
+                Toast.makeText(this, "No hay usuario activo. Inicie sesión nuevamente.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            //  Recargar datos desde Firebase (muy importante)
+            user.reload().addOnCompleteListener { reloadTask ->
+                if (reloadTask.isSuccessful) {
+                    if (user.isEmailVerified) {
+                        Toast.makeText(this, "¡Correo verificado! Acceso concedido.", Toast.LENGTH_LONG).show()
+
+                        // Ir a MainActivity
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Aún no has verificado tu correo. Revisa tu email.", Toast.LENGTH_LONG).show()
+                    }
                 } else {
-                    Toast.makeText(this, "Código incorrecto ❌", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Error al comprobar verificación. Intenta de nuevo.", Toast.LENGTH_SHORT).show()
                 }
-            } else {
-                Toast.makeText(this, "El código debe tener 4 dígitos", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        //  Reenviar correo de verificación
+        tvReenviar.setOnClickListener {
+            val user = auth.currentUser
+            user?.sendEmailVerification()?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Se ha reenviado el correo de verificación a $correo.", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "Error al reenviar correo. Intenta más tarde.", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
